@@ -140,7 +140,7 @@
 <header>
   <h1>爸爸的外食清單<br>Daftar Makan untuk Papa</h1>
   <p>只列爸爸可以吃、能點的餐廳跟餐點</p>
-  <span class="tag">🍚 7 間店 · 每間都有指定餐點，其他不用點</span>
+  <span class="tag">🍚 10 間店 · 每間都有指定餐點，其他不用點</span>
 </header>
 
 <div class="wrap">
@@ -165,7 +165,7 @@
 </div>
 
 <div class="list" id="list">
-  <p class="list-title">📋 這 7 間可以去，指定餐點在黃色框裡 / 7 tempat ini boleh, menu yang dipesan ada di kotak kuning</p>
+  <p class="list-title">📋 這 10 間可以去，指定餐點在黃色框裡 / 10 tempat ini boleh, menu yang dipesan ada di kotak kuning</p>
 </div>
 
 <footer>
@@ -236,6 +236,28 @@ const places = [
     dist:48, dir:198, dirLabel:"南 / Selatan",
     phone:"+886286650204", addr:"Lane 22, Ershizhang Rd 二十張路22巷5號",
     lat:24.9820045, lng:121.5381389, place_id:"ChIJUdgcMAABaDQRrjgTXvJzf3c"
+  },
+  {
+    zh:"新店劉家65巷古早味肉圓", id:"Xin Dian Liu Jia 65 Xiang Gu Zao Wei Rou Yuan",
+    dishes:[{zh:"肉圓（加辣）", id:"Rou Yuan - kue tepung isi daging, tambah pedas"}],
+    dist:346, dir:117, dirLabel:"東南 / Tenggara",
+    phone:"", addr:"Lane 65, Section 3, Beixin Rd 北新路三段65巷2號",
+    lat:24.9810219, lng:121.5413589, place_id:"ChIJX-08n_kBaDQRVQV9E-IK8wk"
+  },
+  {
+    zh:"穀早味豆花店", id:"Gu Zao Wei Dou Hua Dian",
+    dishes:[{zh:"豆花芋圓", id:"Douhua (puding kedelai manis) + bola talas (yuyuan)"}],
+    dist:230, dir:192, dirLabel:"南 / Selatan",
+    phone:"+886229124597", addr:"Jianguo Rd 建國路192號",
+    lat:24.9803875, lng:121.5378052, place_id:"ChIJe3GkEfgBaDQRW5Y5g8YQkIs"
+  },
+  {
+    zh:"季節風", id:"Ji Jie Feng",
+    boxLabelZh:"👉 幫哥哥拿這個 / Ambil ini untuk Ge Ge (Kakak)",
+    dishes:[{zh:"哥哥喜歡吃的（幫忙拿便當就好）", id:"Bento favorit Ge Ge - tidak perlu pilih menu, ambil saja yang biasa dipesan"}],
+    dist:41, dir:309, dirLabel:"西北 / Barat Laut",
+    phone:"+886229170709", addr:"Minquan Rd 民權路87號",
+    lat:24.9826417, lng:121.5379667, place_id:"ChIJh5ATA00BaDQR_WiA8nV7ROQ"
   }
 ];
 
@@ -246,6 +268,8 @@ function render(){
   places.forEach(p => {
     const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}&destination_place_id=${p.place_id}&travelmode=walking`;
     const dishesHtml = p.dishes.map(d => `<p class="dish"><span class="zh">${d.zh}</span><span class="id">${d.id}</span></p>`).join('');
+    const boxLabel = p.boxLabelZh || "👉 爸爸點這個 / Pesan ini untuk Papa";
+    const callBtn = p.phone ? `<a class="btn call" href="tel:${p.phone}">📞 打電話 / Telepon</a>` : `<span class="btn call" style="opacity:.4;pointer-events:none;">📞 無電話 / Tidak ada telepon</span>`;
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
@@ -254,7 +278,7 @@ function render(){
         <p class="name-zh">${p.zh}</p>
         <p class="name-id">${p.id}</p>
         <div class="dish-box">
-          <p class="label">👉 爸爸點這個 / Pesan ini untuk Papa</p>
+          <p class="label">${boxLabel}</p>
           ${dishesHtml}
         </div>
         <div class="meta-row">
@@ -265,7 +289,7 @@ function render(){
           </div>
         </div>
         <div class="btn-row">
-          <a class="btn call" href="tel:${p.phone}">📞 打電話 / Telepon</a>
+          ${callBtn}
           <a class="btn nav" href="${mapsUrl}" target="_blank" rel="noopener">🧭 導航 / Navigasi</a>
         </div>
         <p class="addr-line">${p.addr}</p>
