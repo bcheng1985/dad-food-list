@@ -90,6 +90,14 @@
   .name-zh{font-family:'Noto Sans TC',sans-serif;font-weight:900;font-size:19px;margin:0;line-height:1.3;}
   .name-id{font-weight:700;font-size:13px;color:var(--gold);margin:3px 0 0;letter-spacing:.2px;}
 
+  .status{
+    display:inline-block;margin-top:8px;padding:5px 10px;border-radius:6px;
+    font-size:12.5px;font-weight:800;
+  }
+  .status.open{background:#E4F0E7;color:var(--jade);}
+  .status.closed{background:#F6E2DC;color:var(--brick);}
+  .status.unknown{background:var(--paper-dim);color:var(--ink-soft);}
+
   .dish-box{
     margin:12px 0;background:var(--dish-bg);
     border:1.5px solid var(--dish-border);border-radius:8px;
@@ -181,7 +189,9 @@ const places = [
     dishes:[{zh:"燒鴨飯", id:"Nasi bebek panggang"}],
     dist:103, dir:208, dirLabel:"西南 / Barat Daya",
     phone:"+886229105811", addr:"Jianguo Rd 建國路230號",
-    lat:24.9815953, lng:121.5378033, place_id:"ChIJSy-2evgBaDQRVt9S3hmbs6A"
+    lat:24.9815953, lng:121.5378033, place_id:"ChIJSy-2evgBaDQRVt9S3hmbs6A",
+    hours:[["10:00","20:00"],["10:00","20:00"],["10:00","20:00"],["10:00","20:00"],["10:00","20:00"],["10:00","20:00"],["10:00","20:00"]]
+      .map(r=>[r])
   },
   {
     zh:"池上便當", id:"Chi Shang Bian Dang",
@@ -191,7 +201,8 @@ const places = [
     ],
     dist:110, dir:223, dirLabel:"西南 / Barat Daya",
     phone:"+886222194872", addr:"Jianguo Rd 建國路227號",
-    lat:24.9816814, lng:121.5375388, place_id:"ChIJcfENevgBaDQRebt4u3FqdU8"
+    lat:24.9816814, lng:121.5375388, place_id:"ChIJcfENevgBaDQRebt4u3FqdU8",
+    hours:[[],[["10:30","14:00"],["16:30","20:00"]],[["10:30","14:00"],["16:30","20:00"]],[["10:30","14:00"],["16:30","20:00"]],[["10:30","14:00"],["16:30","20:00"]],[["10:30","14:00"],["16:30","20:00"]],[["10:30","14:00"],["16:30","20:00"]]]
   },
   {
     zh:"嘉義雞肉飯", id:"Jia Yi Ji Rou Fan",
@@ -201,28 +212,40 @@ const places = [
     ],
     dist:78, dir:222, dirLabel:"西南 / Barat Daya",
     phone:"+886229126388", addr:"Jianguo Rd 建國路238號",
-    lat:24.9818842, lng:121.5377656, place_id:"ChIJr6Jae_gBaDQRNFkN93IjR9Y"
+    lat:24.9818842, lng:121.5377656, place_id:"ChIJr6Jae_gBaDQRNFkN93IjR9Y",
+    hours:[
+      [["11:00","14:00"],["17:00","20:00"]], // Sun
+      [["11:00","14:00"],["17:00","20:00"]], // Mon
+      [["11:00","14:00"],["17:00","20:00"]], // Tue
+      [["11:00","14:00"],["17:00","20:00"]], // Wed
+      [["11:00","14:00"],["17:00","20:00"]], // Thu
+      [["11:00","14:00"],["17:00","20:00"]], // Fri
+      []                                       // Sat closed
+    ]
   },
   {
     zh:"四海遊龍", id:"Si Hai You Long",
     dishes:[{zh:"鍋貼", id:"Pangsit goreng (potsticker)"}],
     dist:72, dir:225, dirLabel:"西南 / Barat Daya",
     phone:"+886289113369", addr:"Jianguo Rd 建國路242號",
-    lat:24.9819595, lng:121.5377788, place_id:"ChIJm5refPgBaDQRwcUkpwRVdA0"
+    lat:24.9819595, lng:121.5377788, place_id:"ChIJm5refPgBaDQRwcUkpwRVdA0",
+    hours:[[["09:00","21:00"]],[["09:00","21:00"]],[["09:00","21:00"]],[["09:00","21:00"]],[["09:00","21:00"]],[["09:00","21:00"]],[]]
   },
   {
     zh:"黑庄牛肉麵", id:"Hei Zhuang Niu Rou Mian",
     dishes:[{zh:"小碗牛肉麵（細麵）", id:"Mie sapi kuah, mangkuk kecil, mie tipis"}],
     dist:270, dir:185, dirLabel:"南 / Selatan",
     phone:"+886229180289", addr:"Jianguo Rd 建國路180號",
-    lat:24.9799908, lng:121.5380723, place_id:"ChIJucssGvgBaDQRPnMgJ1F-z7Y"
+    lat:24.9799908, lng:121.5380723, place_id:"ChIJucssGvgBaDQRPnMgJ1F-z7Y",
+    hours:[[],[["10:30","17:30"]],[["10:30","17:30"]],[["10:30","17:30"]],[["10:30","17:30"]],[["10:30","17:30"]],[["10:30","17:30"]]]
   },
   {
     zh:"永和豆漿", id:"Yong He Dou Jiang",
     dishes:[{zh:"水煎包", id:"Bakpau goreng-kukus isi daging"}],
     dist:287, dir:180, dirLabel:"南 / Selatan",
     phone:"+886229150319", addr:"Jianguo Rd 建國路174號",
-    lat:24.9798246, lng:121.5382716, place_id:"ChIJ4V1MGfgBaDQRK6s06zdPFuA"
+    lat:24.9798246, lng:121.5382716, place_id:"ChIJ4V1MGfgBaDQRK6s06zdPFuA",
+    hours:[[],[["20:30","10:30"]],[["20:30","10:30"]],[["20:30","10:30"]],[["20:30","10:30"]],[["20:30","10:30"]],[["20:30","10:30"]]]
   },
   {
     zh:"福鼎湯包", id:"Fu Ding Tang Bao",
@@ -235,21 +258,32 @@ const places = [
     ],
     dist:48, dir:198, dirLabel:"南 / Selatan",
     phone:"+886286650204", addr:"Lane 22, Ershizhang Rd 二十張路22巷5號",
-    lat:24.9820045, lng:121.5381389, place_id:"ChIJUdgcMAABaDQRrjgTXvJzf3c"
+    lat:24.9820045, lng:121.5381389, place_id:"ChIJUdgcMAABaDQRrjgTXvJzf3c",
+    hours:[
+      [["11:00","14:00"],["17:00","20:00"]], // Sun
+      [["11:00","14:00"],["17:00","20:00"]], // Mon
+      [["11:00","14:00"],["17:00","20:00"]], // Tue
+      [["11:00","14:00"],["17:00","20:00"]], // Wed
+      [["11:00","14:00"],["17:00","20:00"]], // Thu
+      [],                                      // Fri closed
+      []                                       // Sat closed
+    ]
   },
   {
     zh:"新店劉家65巷古早味肉圓", id:"Xin Dian Liu Jia 65 Xiang Gu Zao Wei Rou Yuan",
     dishes:[{zh:"肉圓（加辣）", id:"Rou Yuan - kue tepung isi daging, tambah pedas"}],
     dist:346, dir:117, dirLabel:"東南 / Tenggara",
     phone:"", addr:"Lane 65, Section 3, Beixin Rd 北新路三段65巷2號",
-    lat:24.9810219, lng:121.5413589, place_id:"ChIJX-08n_kBaDQRVQV9E-IK8wk"
+    lat:24.9810219, lng:121.5413589, place_id:"ChIJX-08n_kBaDQRVQV9E-IK8wk",
+    hours:null
   },
   {
     zh:"穀早味豆花店", id:"Gu Zao Wei Dou Hua Dian",
     dishes:[{zh:"豆花芋圓", id:"Douhua (puding kedelai manis) + bola talas (yuyuan)"}],
     dist:230, dir:192, dirLabel:"南 / Selatan",
     phone:"+886229124597", addr:"Jianguo Rd 建國路192號",
-    lat:24.9803875, lng:121.5378052, place_id:"ChIJe3GkEfgBaDQRW5Y5g8YQkIs"
+    lat:24.9803875, lng:121.5378052, place_id:"ChIJe3GkEfgBaDQRW5Y5g8YQkIs",
+    hours:[[],[["15:00","19:30"]],[["15:00","19:30"]],[["15:00","19:30"]],[["15:00","19:30"]],[["15:00","19:30"]],[["15:00","18:00"]]]
   },
   {
     zh:"季節風", id:"Ji Jie Feng",
@@ -257,14 +291,72 @@ const places = [
     dishes:[{zh:"哥哥喜歡吃的（幫忙拿便當就好）", id:"Bento favorit Ge Ge - tidak perlu pilih menu, ambil saja yang biasa dipesan"}],
     dist:41, dir:309, dirLabel:"西北 / Barat Laut",
     phone:"+886229170709", addr:"Minquan Rd 民權路87號",
-    lat:24.9826417, lng:121.5379667, place_id:"ChIJh5ATA00BaDQR_WiA8nV7ROQ"
+    lat:24.9826417, lng:121.5379667, place_id:"ChIJh5ATA00BaDQR_WiA8nV7ROQ",
+    hours:[[["11:00","22:00"]],[["11:00","22:00"]],[["11:00","22:00"]],[["11:00","22:00"]],[["11:00","22:00"]],[["11:00","22:00"]],[["11:00","22:00"]]]
   }
 ];
 
 function walkMin(d){ return Math.max(1, Math.round(d/75)); }
 
+function timeToMin(t){ const [h,m]=t.split(':').map(Number); return h*60+m; }
+
+function taipeiNow(){
+  const fmt = new Intl.DateTimeFormat('en-US', {timeZone:'Asia/Taipei', weekday:'short', hour:'2-digit', minute:'2-digit', hour12:false});
+  const map = {};
+  fmt.formatToParts(new Date()).forEach(p => map[p.type]=p.value);
+  const dayIdx = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[map.weekday];
+  let hour = parseInt(map.hour,10); if(hour===24) hour=0;
+  return {day:dayIdx, minutes: hour*60 + parseInt(map.minute,10)};
+}
+
+function isOpenNow(hours, now){
+  if(!hours) return null;
+  for(const r of (hours[now.day]||[])){
+    const o=timeToMin(r[0]), c=timeToMin(r[1]);
+    if(c>o){ if(now.minutes>=o && now.minutes<c) return true; }
+    else { if(now.minutes>=o) return true; }
+  }
+  for(const r of (hours[(now.day+6)%7]||[])){
+    const o=timeToMin(r[0]), c=timeToMin(r[1]);
+    if(c<o && now.minutes<c) return true;
+  }
+  return false;
+}
+
+function nextOpen(hours, now){
+  if(!hours) return null;
+  for(let offset=0; offset<8; offset++){
+    const d=(now.day+offset)%7;
+    for(const r of (hours[d]||[])){
+      if(offset===0){ if(timeToMin(r[0])>now.minutes) return {day:d, time:r[0]}; }
+      else return {day:d, time:r[0]};
+    }
+  }
+  return null;
+}
+
+const DAY_ZH=['週日','週一','週二','週三','週四','週五','週六'];
+const DAY_ID=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+
+function statusHtml(p, now){
+  if(!p.hours){
+    return `<span class="status unknown">⏰ 營業時間未知，建議先電洽或現場確認 / Jam buka tidak diketahui, cek langsung</span>`;
+  }
+  if(isOpenNow(p.hours, now)){
+    return `<span class="status open">🟢 營業中 / Buka sekarang</span>`;
+  }
+  const nxt = nextOpen(p.hours, now);
+  if(nxt){
+    const sameDay = nxt.day===now.day;
+    const dayLabel = sameDay ? '' : `${DAY_ZH[nxt.day]} / ${DAY_ID[nxt.day]} `;
+    return `<span class="status closed">🔴 休息中，${dayLabel}${nxt.time} 開門 / Tutup, buka ${nxt.time}</span>`;
+  }
+  return `<span class="status closed">🔴 休息中 / Tutup</span>`;
+}
+
 function render(){
   const list = document.getElementById('list');
+  const now = taipeiNow();
   places.forEach(p => {
     const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}&destination_place_id=${p.place_id}&travelmode=walking`;
     const dishesHtml = p.dishes.map(d => `<p class="dish"><span class="zh">${d.zh}</span><span class="id">${d.id}</span></p>`).join('');
@@ -277,6 +369,7 @@ function render(){
       <div class="body">
         <p class="name-zh">${p.zh}</p>
         <p class="name-id">${p.id}</p>
+        ${statusHtml(p, now)}
         <div class="dish-box">
           <p class="label">${boxLabel}</p>
           ${dishesHtml}
@@ -300,6 +393,7 @@ function render(){
 }
 
 render();
+setInterval(render, 60000);
 </script>
 
 </body>
